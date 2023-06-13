@@ -19,39 +19,93 @@ console.log(supabase);
 
 
 
-// const { data, error } = await supabase.auth.signUp({
-//   email: 'example@email.com',
-//   password: 'example-password',
-// })
 
+//*************************** START OF  SIGN UP with email  **********************************
 
-// const { data, error } = await supabase.auth.signUp({
-//   email: 'melissa@yummygoods.com',
-//   password: 'TestSupabase',
-// })
+async function signUpWithEmail(email, password){
+const { data, error } = await supabase.auth.signUp(
+  {
+    email: 'example@email.com',
+    password: 'example-password',
+    options: {
+      emailRedirectTo: 'https://example.com/welcome'
+    }
+  }
+)
+}
+
+function emailSignUp(){
+const signupForm = document.getElementById('signUpForm');
+signUpForm.addEventListener('submit', (event) => {
+	event.preventDefault();
+  let email = document.getElementById('signUpEmail').value;
+  let password = document.getElementById('signUpPassword').value;
+console.log(email, password);
+// signInWithGoogle();
+signUpWithEmail(email, password);
+loginForm.reset();
+});
+}
+
+emailSignUp();
+//*************************** END OF SIGN UP with email  **********************************
 
 
 
 
 
 //*************************** start of google login  **********************************
-async function signInWithGoogle(loginData) {
-  const { data, error } = await supabase.auth.signInWithOAuth({
-    provider: 'google',
+// async function signInWithGoogle() {
+//   const { data, error } = await supabase.auth.signInWithOAuth({
+//     provider: 'google',
+//     options: {
+//       queryParams: {
+//         access_type: 'offline',
+//         prompt: 'consent',
+//         //hd: 'domain.com',  google will also allow OAuth logins to be restricted to a specified domain using the 'hd' parameter
+//       },
+//     },
+//   })
+// }
+
+// ********************************** USER LOG IN  **********************************
+async function signInWithEmail() {
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email: 'example@email.com',
+    password: 'example-password',
   })
+}
+async function signOut() {
+  const { error } = await supabase.auth.signOut()
 }
 
 
-
 const loginForm = document.getElementById('loginForm');
-
 loginForm.addEventListener('submit', (event) => {
 	event.preventDefault();
-  let loginData = document.getElementById('loginForm').value;
-console.log(loginData);
-signInWithGoogle(loginData);
+  let email = document.getElementById('email').value;
+  let password = document.getElementById('password').value;
+console.log(email, password);
+// signInWithGoogle();
+signInWithEmail(email, password);
 loginForm.reset();
 });
+
+
+// ********************************** END  OF  USER LOG IN  **********************************
+
+
+
+
+
+
+// loginForm.addEventListener('submit', (event) => {
+// 	event.preventDefault();
+//   let loginData = document.getElementById('loginForm').value;
+// console.log(loginData);
+
+// loginForm.reset();
+// });
 
 
 
@@ -68,44 +122,30 @@ async function signout() {
 
 //***************************** end of google signout**********************************
 
-//Obtain the provider refresh token#
-// Google OAuth2.0 doesn't return the provider_refresh_token by default. If you need the provider_refresh_token returned, you will need to add additional query parameters:
-// async function signInWithGoogle() {
-//   const { data, error } = await supabase.auth.signInWithOAuth({
-//     provider: 'google',
-//     options: {
-//       queryParams: {
-//         access_type: 'offline',
-//         prompt: 'consent',
-//         hd: 'domain.com', // google will also allow OAuth logins to be restricted to a specified domain using the 'hd' parameter
-//       },
-//     },
-//   })
-// }
 
 
 
 
 
-//***************************** add dog to db ********************************** 
-async function addDog(dog_name){
-  const { data, error } = await supabase
-    .from('dogs')
-    .insert([{dog_name: dog_name}] );
-  }
+// //***************************** add dog to db ********************************** 
+// async function addDog(dog_name){
+//   const { data, error } = await supabase
+//     .from('dogs')
+//     .insert([{dog_name: dog_name}] );
+//   }
 
-//********************************** dog form **********************************
-const dogForm = document.getElementById('dogForm');
+// //********************************** dog form **********************************
+// const dogForm = document.getElementById('dogForm');
 
-dogForm.addEventListener('submit', (event) => {
-	event.preventDefault();
-	console.log('prevented form default, noice');
-  let dog_name = document.getElementById('dog_name').value;
-  console.log(dog_name);
-addDog(dog_name);
-	dogForm.reset();
-});
-//***************************** end of add dog *******************************
+// dogForm.addEventListener('submit', (event) => {
+// 	event.preventDefault();
+// 	console.log('prevented form default, noice');
+//   let dog_name = document.getElementById('dog_name').value;
+//   console.log(dog_name);
+// addDog(dog_name);
+// 	dogForm.reset();
+// });
+// //***************************** end of add dog *******************************
 
 
 

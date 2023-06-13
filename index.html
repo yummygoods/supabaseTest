@@ -33,7 +33,7 @@
 		</nav>
 
 		<main>
-			<h1>this is the home page</h1>
+			<!-- <h1>this is the home page</h1>
 			<span>🦄</span>
 
 
@@ -43,7 +43,7 @@
         <fieldset>
             <!--  <legend>Add your dog(s)</legend>-->
 
-            <label for="dog_name">dog's name:</label>
+            <!-- <label for="dog_name">dog's name:</label>
             <input type="text" name="dog_name" id="dog_name">
 
             <label for="dogPic">dog's profile pic:</label>
@@ -53,10 +53,29 @@
         <button type="reset" class="resetBtn">reset form</button>
 
 
-    </form>
+    </form> --> 
+
+
+
+
+    <form id="signUpForm">
+  <fieldset>
+		<legend>sign up with email</legend>
+      <label for="email">email</label>
+      <input name="email" type="email" id="signUpEmail" autocomplete=""/>
+      <label for="password">Password:</label>
+      <input type="password" id="signUpPassword" name="password" autocomplete="current-password">
+  
+  
+      <button type="submit">Sign up!</button>
+			<p>(add social sign in buttons here)</p>
+		</fieldset>
+</form>
+
 
     <form id="loginForm">
-  
+			<fieldset>
+				<legend>log in</legend>
       <label for="email">email</label>
       <input name="email" type="email" id="email" autocomplete=""/>
       <label for="password">Password:</label>
@@ -64,6 +83,8 @@
   
   
       <button type="submit">Sign in</button>
+			<p>(add social sign in buttons here)</p>
+			</fieldset>
 </form>
 
 			<!-- <img src="https://cdn.shopify.com/s/files/1/2185/9311/products/IMG_8907_1024x1024.jpg?v=1621528436"> -->
