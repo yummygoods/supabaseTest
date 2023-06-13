@@ -18,16 +18,83 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 console.log(supabase);
 
 
+
+// const { data, error } = await supabase.auth.signUp({
+//   email: 'example@email.com',
+//   password: 'example-password',
+// })
+
+
+// const { data, error } = await supabase.auth.signUp({
+//   email: 'melissa@yummygoods.com',
+//   password: 'TestSupabase',
+// })
+
+
+
+
+
+//*************************** start of google login  **********************************
+async function signInWithGoogle(loginData) {
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+  })
+}
+
+
+
+const loginForm = document.getElementById('loginForm');
+
+loginForm.addEventListener('submit', (event) => {
+	event.preventDefault();
+  let loginData = document.getElementById('loginForm').value;
+console.log(loginData);
+signInWithGoogle(loginData);
+loginForm.reset();
+});
+
+
+
+
+//***************************** end of google login **********************************
+
+
+//***************************** start of google signout **********************************
+
+async function signout() {
+  const { error } = await supabase.auth.signOut()
+}
+
+
+//***************************** end of google signout**********************************
+
+//Obtain the provider refresh token#
+// Google OAuth2.0 doesn't return the provider_refresh_token by default. If you need the provider_refresh_token returned, you will need to add additional query parameters:
+// async function signInWithGoogle() {
+//   const { data, error } = await supabase.auth.signInWithOAuth({
+//     provider: 'google',
+//     options: {
+//       queryParams: {
+//         access_type: 'offline',
+//         prompt: 'consent',
+//         hd: 'domain.com', // google will also allow OAuth logins to be restricted to a specified domain using the 'hd' parameter
+//       },
+//     },
+//   })
+// }
+
+
+
+
+
+//***************************** add dog to db ********************************** 
 async function addDog(dog_name){
   const { data, error } = await supabase
     .from('dogs')
     .insert([{dog_name: dog_name}] );
   }
 
-
-
-
-
+//********************************** dog form **********************************
 const dogForm = document.getElementById('dogForm');
 
 dogForm.addEventListener('submit', (event) => {
@@ -38,21 +105,10 @@ dogForm.addEventListener('submit', (event) => {
 addDog(dog_name);
 	dogForm.reset();
 });
-
-console.log('now listening for submit button');
-
+//***************************** end of add dog *******************************
 
 
 
 
-// async function loadData() {
-//   const { data, error } = await supabase
-//           .from('dogs')
-//           .select('dog_name')
-
-//   console.log(data)
-//   // console.log(error)
-// }
-// loadData();
 
 
